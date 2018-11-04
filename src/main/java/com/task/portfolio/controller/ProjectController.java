@@ -17,12 +17,11 @@ public class ProjectController {
 
     @CrossOrigin("*")
     @RequestMapping(value = "setProject", method = RequestMethod.POST)
-    public String setProject(@RequestBody Project project) {
+    public void setProject(@RequestBody Project project) {
         UUID uuid = UUID.randomUUID();
         String projectCode = uuid.toString();
         projectService.setProject(project, projectCode);
 
-        return "your project was created";
     }
 
 
