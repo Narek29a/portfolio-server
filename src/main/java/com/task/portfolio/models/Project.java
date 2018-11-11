@@ -9,6 +9,7 @@ public class Project {
     private int id;
     private String title;
     private String description;
+    private String projectCode;
     private Date startDate;
     private Date endDate;
     private int duration;
@@ -35,6 +36,14 @@ public class Project {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getProjectCode() {
+        return projectCode;
+    }
+
+    public void setProjectCode(String projectCode) {
+        this.projectCode = projectCode;
     }
 
     public void setDescription(String description) {
