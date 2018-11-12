@@ -52,4 +52,9 @@ public class PortfolioApplicationTests {
         projectController.editProject(project,1);
     }
 
+    @Test
+    public void sortingByLocation() {
+        projectController.sortingByLocation("Ethiopia");
+    }
+
 }

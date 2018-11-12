@@ -48,4 +48,13 @@ public class ProjectController {
     }
 
 
+    @CrossOrigin("*")
+    @RequestMapping(value = "sortingByLocation", method = RequestMethod.POST)
+    public List<Project> sortingByLocation(@RequestParam(value = "location") String location) {
+       return projectService.sortingByLocation(location);
+
+    }
+
+
+
 }

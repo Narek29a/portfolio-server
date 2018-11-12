@@ -186,5 +186,50 @@ public class ProjectDAO {
         }
 
     }
+    public List<Project> sortingByLocation(String location) {
+        Connection connection = null;
+        Project project;
+        Contact contact;
+        List<Project> list = new ArrayList<>();
+        try {
+            connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select project.contacts.id, project.contacts.fName , project.contacts.lName, project.contacts.address, project.contacts.position,project.portfolio.title, project.portfolio.description, project.portfolio.projectCode, project.portfolio.startDate, project.portfolio.endDate, project.portfolio.duration, project.portfolio.location from project.contacts, project.portfolio where project.contacts.id = project.portfolio.contactId and project.portfolio.location = ? order by project.contacts.id desc ");
+            preparedStatement.setString(1,location);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                project = new Project();
+                contact = new Contact();
+
+                contact.setId(resultSet.getInt("id"));
+                contact.setfName(resultSet.getString("fName"));
+                contact.setlName(resultSet.getString("lName"));
+                contact.setAddress(resultSet.getString("address"));
+                contact.setPosition(resultSet.getString("position"));
+
+                project.setContact(contact);
+                project.setTitle(resultSet.getString("title"));
+                project.setDescription(resultSet.getString("description"));
+                project.setProjectCode(resultSet.getString("projectCode"));
+                project.setStartDate(resultSet.getDate("startDate"));
+                project.setEndDate(resultSet.getDate("endDate"));
+                project.setDuration(resultSet.getInt("duration"));
+                project.setLocation(resultSet.getString("location"));
+
+                list.add(project);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
 
 }

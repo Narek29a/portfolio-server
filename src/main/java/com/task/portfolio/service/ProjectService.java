@@ -35,4 +35,9 @@ public class ProjectService {
         projectDAO.editProject(project, contactId);
     }
 
+
+    public List<Project> sortingByLocation(String location) {
+        return projectDAO.sortingByLocation(location);
+    }
+
 }
